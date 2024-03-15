@@ -60,7 +60,7 @@ class LinkedList
   end
 
   def pop(node = @head)
-    return nil if head.nil?
+    return nil if @head.nil?
     return node.next_node = nil if node.next_node.next_node.nil?
 
     pop(node.next_node)
@@ -101,13 +101,12 @@ class LinkedList
     removed_node = at(index)
 
     if index.zero?
-      @head = at(1)
-      return removed_node
+      shift
+    elsif index == size - 1
+      pop
+    else
+      at(index - 1).next_node = at(index + 1)
     end
-
-    at(index - 1).next_node = nil if index == size - 1
-    at(index - 1).next_node = at(index + 1)
-
     removed_node
   end
 end
@@ -131,6 +130,6 @@ new_list.append(40)
 new_list.prepend(4)
 new_list.prepend(3)
 new_list.insert_at(60, 2)
-new_list.remove_at(3)
+new_list.remove_at(6)
 # puts new_list.last.value
 puts new_list
